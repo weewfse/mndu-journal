@@ -1,0 +1,57 @@
+<!-- article.html
+  - Uses existing style.css and login-modal.css (do not modify)
+  - Layout and design matches current article card style (no new colors, fonts, or class names)
+  - Displays article details, abstract, keywords, and PDF viewer
+  - View PDF and Download PDF buttons
+  - Loads article data based on ?id= query parameter (JS to be added)
+-->
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Өгүүллийн дэлгэрэнгүй</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/login-modal.css">
+</head>
+<body>
+    <!-- Navbar (reuse existing style, do not change) -->
+    <nav class="navbar">
+        <div class="navbar-logo">Journal Portal</div>
+        <div class="navbar-links">
+            <a href="index.html">Нүүр</a>
+            <a href="archive.html">Архив</a>
+            <a href="#" id="loginNav">Нэвтрэх</a>
+        </div>
+    </nav>
+
+    <main style="display:flex;justify-content:center;align-items:flex-start;padding:2rem 0;">
+        <div class="article-card" style="max-width:700px;width:100%;">
+            <h1 id="articleTitle" style="margin-bottom:0.5em;">Өгүүллийн гарчиг</h1>
+            <div style="display:flex;gap:1.5em;align-items:center;margin-bottom:1em;flex-wrap:wrap;">
+                <span id="articleAuthor" style="font-weight:500;">Зохиогч: </span>
+                <span id="articleDate" style="opacity:0.8;">Огноо: </span>
+                <span id="articleLevel" class="badge" style="background:var(--olive,#3A4A2A);color:#fff;padding:0.2em 0.8em;border-radius:8px;font-size:0.95em;">Түвшин</span>
+            </div>
+            <div style="margin-bottom:1.2em;">
+                <strong>Хураангуй:</strong>
+                <div id="articleAbstract" style="margin-top:0.3em;line-height:1.7;">Abstract текст энд байна.</div>
+            </div>
+            <div style="margin-bottom:1.2em;">
+                <strong>Түлхүүр үгс:</strong>
+                <span id="articleKeywords" style="display:inline-block;margin-left:0.5em;"></span>
+            </div>
+            <div style="display:flex;gap:1em;margin-bottom:1.5em;">
+                <a id="viewPdfBtn" href="#pdfViewer" style="background:var(--navy,#0B1F3B);color:#fff;padding:0.5em 1.2em;border-radius:8px;text-decoration:none;font-weight:500;">PDF харах</a>
+                <a id="downloadPdfBtn" href="#" download style="background:var(--gold,#C9A227);color:#fff;padding:0.5em 1.2em;border-radius:8px;text-decoration:none;font-weight:500;">Татах</a>
+            </div>
+            <div id="pdfViewer" style="width:100%;height:600px;border:1.5px solid var(--olive,#3A4A2A);border-radius:10px;overflow:hidden;">
+                <iframe id="articlePdf" src="" width="100%" height="100%" style="border:none;"></iframe>
+            </div>
+        </div>
+    </main>
+
+    <script src="article.js"></script>
+    <script src="assets/js/login-modal.js"></script>
+</body>
+</html>

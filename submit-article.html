@@ -1,0 +1,61 @@
+<!-- submit-article.html
+  - Uses style.css, does not change layout or design
+  - Only for researcher role
+-->
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Өгүүлэл оруулах</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">Journal Portal</div>
+        <div class="navbar-links">
+            <a href="index.html">Нүүр</a>
+            <a href="archive.html">Архив</a>
+            <a href="account.html">Миний аккаунт</a>
+        </div>
+    </nav>
+    <main style="display:flex;justify-content:center;align-items:flex-start;padding:2rem 0;">
+        <div class="submit-article-card" style="max-width:700px;width:100%;">
+            <h1 style="margin-bottom:1em;">Өгүүлэл оруулах</h1>
+            <form id="submitArticleForm" enctype="multipart/form-data">
+                <div style="margin-bottom:1em;">
+                    <label>Гарчиг:<br>
+                        <input type="text" name="title" required style="width:100%;padding:0.5em;">
+                    </label>
+                </div>
+                <div style="margin-bottom:1em;">
+                    <label>Хураангуй:<br>
+                        <textarea name="abstract" required style="width:100%;padding:0.5em;min-height:100px;"></textarea>
+                    </label>
+                </div>
+                <div style="margin-bottom:1em;">
+                    <label>Түлхүүр үгс ( , -ээр тусгаарлана):<br>
+                        <input type="text" name="keywords" required style="width:100%;padding:0.5em;">
+                    </label>
+                </div>
+                <div style="margin-bottom:1em;">
+                    <label>Түвшин:
+                        <select name="level" required style="width:100%;padding:0.5em;">
+                            <option value="Бакалавр">Бакалавр</option>
+                            <option value="Магистр">Магистр</option>
+                            <option value="Доктор">Доктор</option>
+                        </select>
+                    </label>
+                </div>
+                <div style="margin-bottom:1.5em;">
+                    <label>PDF файл:
+                        <input type="file" name="pdf" accept="application/pdf" required>
+                    </label>
+                </div>
+                <button type="submit" style="background:var(--olive,#3A4A2A);color:#fff;padding:0.5em 1.2em;border-radius:8px;font-weight:500;">Илгээх</button>
+            </form>
+        </div>
+    </main>
+    <script src="submit-article.js"></script>
+</body>
+</html>

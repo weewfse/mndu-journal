@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Архив</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/login-modal.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a class="logo" href="index.html" style="display:flex;align-items:center;text-decoration:none;">
+                <img src="assets/img/logo.png" alt="ҮБХИС лого">
+                <span>Үндэсний батлан хамгаалахын их сургууль</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Нүүр</a></li>
+                <li><a href="archive.html" class="active">Архив</a></li>
+                <li id="nav-login"><a href="#" id="open-login-modal">Нэвтрэх</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="archive-section">
+            <div class="archive-results" style="width:100%">
+                <div class="archive-header" style="flex-direction:column;align-items:center;">
+                    <h2 style="text-align:center;">Архивын жагсаалт</h2>
+                    <form id="archiveSearchForm" class="search-bar" style="margin:0 auto 1.5rem auto;max-width:420px;width:100%;">
+                        <input type="text" id="archiveSearchInput" placeholder="Өгүүлэл, сэдэв, зохиогчоор архивоос хайх...">
+                        <button type="submit">Хайх</button>
+                    </form>
+                </div>
+                <div class="school-cards">
+                    <div class="military-card" id="journalCard">
+                        <div class="military-card-header">
+                            <span class="military-icon">📚</span>
+                            <span class="military-title">ЦАЦ сэтгүүлүүд</span>
+                        </div>
+                        <div class="military-card-body">
+                            <div class="military-subtitle">ҮБХИС-ийн ЦАЦ сэтгүүлүүдийн жагсаалт</div>
+                        </div>
+                        <div id="journalSection" class="military-expand-section">
+                            <div id="journalList" style="display:flex;flex-wrap:wrap;gap:2rem;justify-content:center;">
+                                <div style="background:linear-gradient(135deg,#0B1F3B 70%,#3A4A2A 100%);color:#fff;border-radius:12px;box-shadow:0 4px 18px 0 rgba(11,31,59,0.10);width:320px;min-height:120px;padding:1.5rem 1.2rem 1.2rem 1.2rem;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+                                    <div style="font-size:1.2em;font-weight:bold;margin-bottom:0.5em;">ЦАЦ сэтгүүлийн нэр</div>
+                                    <div style="font-size:1em;opacity:0.92;">Сэтгүүлийн товч танилцуулга эсвэл мэдээлэл энд орно.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="military-card" id="bachelorCard">
+                        <div class="military-card-header">
+                            <span class="military-icon">🎓</span>
+                            <span class="military-title">Бакалавр</span>
+                        </div>
+                        <div class="military-card-body">
+                            <div class="military-subtitle">Бакалаврын архив</div>
+                            <div class="military-desc">Бакалаврын түвшний өгүүллүүд</div>
+                        </div>
+                        <div id="bachelorArticlesSection" class="military-expand-section">
+                            <div class="bachelor-articles-list" id="bachelorArticles"></div>
+                        </div>
+                    </div>
+                    <div class="military-card" id="magistrCard">
+                        <div class="military-card-header">
+                            <span class="military-icon">🎖️</span>
+                            <span class="military-title">Магистр</span>
+                        </div>
+                        <div class="military-card-body">
+                            <div class="military-subtitle">Магистрын архив</div>
+                            <div class="military-desc">Магистрын түвшний өгүүллүүд</div>
+                        </div>
+                        <div id="magistrArticlesSection" class="military-expand-section">
+                            <div class="bachelor-articles-list" id="magistrArticles"></div>
+                        </div>
+                    </div>
+                    <div class="military-card" id="doctorCard">
+                        <div class="military-card-header">
+                            <span class="military-icon">🏅</span>
+                            <span class="military-title">Доктор</span>
+                        </div>
+                        <div class="military-card-body">
+                            <div class="military-subtitle">Докторын архив</div>
+                            <div class="military-desc">Докторын түвшний өгүүллүүд</div>
+                        </div>
+                        <div id="doctorArticlesSection" class="military-expand-section">
+                            <div class="bachelor-articles-list" id="doctorArticles"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="journals-section" style="max-width:1100px;margin:0 auto 2rem auto;padding:2rem 1rem 1rem 1rem;">
+        </section>
+        <style>
+            .military-card {
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                background: linear-gradient(120deg, #f4f6f8 80%, #e6e6e6 100%);
+                border-radius: 18px;
+                border: 4px solid var(--olive, #3A4A2A);
+                box-shadow: 0 4px 18px 0 rgba(11,31,59,0.10);
+                margin-bottom: 2.2rem;
+                padding: 2.2rem 1.5rem 1.2rem 1.5rem;
+                max-width: 700px;
+                width: 100%;
+                transition: box-shadow 0.2s, border-color 0.2s, transform 0.18s;
+            }
+            .military-card:hover {
+                box-shadow: 0 8px 32px rgba(11,31,59,0.16);
+                border-color: var(--gold, #C9A227);
+                transform: translateY(-2px) scale(1.01);
+            }
+            .military-card-header {
+                display: flex;
+                align-items: center;
+                gap: 1.1em;
+                margin-bottom: 0.7em;
+            }
+            .military-icon {
+                font-size: 2.2em;
+                background: #0B1F3B;
+                color: #fff;
+                border-radius: 50%;
+                width: 54px;
+                height: 54px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 8px 0 rgba(11,31,59,0.07);
+            }
+            .military-title {
+                font-size: 1.5em;
+                font-weight: bold;
+                color: var(--gold, #C9A227);
+                letter-spacing: 1px;
+            }
+            .military-card-body {
+                margin-bottom: 0.5em;
+            }
+            .military-subtitle {
+                font-size: 1.2em;
+                font-weight: bold;
+                color: var(--navy, #0B1F3B);
+                margin-bottom: 0.2em;
+                text-shadow: 0 2px 8px #e6e6e6;
+            }
+            .military-desc {
+                font-size: 1.08em;
+                color: var(--olive, #3A4A2A);
+                font-weight: 500;
+                margin-bottom: 0.2em;
+            }
+            .military-expand-section {
+                display: none;
+                width: 100%;
+                margin-top: 1.2rem;
+            }
+            .military-card.active .military-expand-section {
+                display: block;
+            }
+            .bachelor-articles-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2rem;
+                margin-top: 0.5rem;
+                justify-content: center;
+            }
+            .bachelor-article-card {
+                background: linear-gradient(135deg, #0B1F3B 70%, #3A4A2A 100%);
+                border-radius: 12px;
+                box-shadow: 0 4px 18px 0 rgba(11,31,59,0.10);
+                width: 320px;
+                min-height: 180px;
+                padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+                color: #fff;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                transition: transform 0.18s;
+            }
+            .bachelor-article-card:hover {
+                transform: translateY(-3px) scale(1.01);
+                box-shadow: 0 8px 32px rgba(11,31,59,0.16);
+            }
+            .bachelor-article-title {
+                font-size: 1.2em;
+                font-weight: bold;
+                margin-bottom: 0.5em;
+            }
+            .bachelor-article-meta {
+                font-size: 0.98em;
+                color: var(--gold, #C9A227);
+                margin-bottom: 0.3em;
+            }
+            .bachelor-article-desc {
+                font-size: 1em;
+                color: #fff;
+                opacity: 0.92;
+            }
+            .journals-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        </style>
+        </main>
+    <footer>
+        <div class="footer-inner">
+            <span>&copy; 2026 ҮБХИС - Эрдэм шинжилгээний өгүүллийн нэгдсэн сан</span>
+        </div>
+        </footer>
+
+        <!-- Login Modal -->
+        <div id="loginModal" class="login-modal-bg">
+            <div class="login-modal">
+                <button class="close-btn" id="close-login-modal" title="Хаах">&times;</button>
+                <div class="login-icon">
+                    <svg width="32" height="32" fill="#fff" viewBox="0 0 24 24"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>
+                </div>
+                <div class="login-toggle-group">
+                    <button id="userTypeBtn" type="button" class="login-toggle-btn active">Хэрэглэгч</button>
+                    <button id="researcherTypeBtn" type="button" class="login-toggle-btn">Судлаач</button>
+                </div>
+                    <form class="login-form">
+                        <input type="text" id="login-username" name="username" required placeholder="Нэвтрэх нэр">
+                        <input type="password" id="login-password" name="password" required placeholder="Нууц үг">
+                        <button type="submit">Нэвтрэх</button>
+                            <a href="#" id="register-link" class="login-register-btn">Бүртгүүлэх</a>
+                    </form>
+            </div>
+        </div>
+
+                <script>
+                        // Show bachelor articles on card click
+                        const bachelorCard = document.getElementById('bachelorCard');
+                        const bachelorSection = document.getElementById('bachelorArticlesSection');
+                        const bachelorArticles = [
+                            {
+                                title: "Батлан хамгаалах бодлогын шинэчлэл",
+                                author: "Д. Бат-Эрдэнэ",
+                                date: "2026-01-15",
+                                desc: "Бакалаврын түвшний судалгааны ажлын товч танилцуулга."
+                            },
+                            {
+                                title: "Цэргийн стратегийн үндэс",
+                                author: "С. Мөнх-Оргил",
+                                date: "2025-12-10",
+                                desc: "Цэргийн стратегийн онол, практикийн тухай өгүүлэл."
+                            },
+                            {
+                                title: "Техникийн дэвшил ба аюулгүй байдал",
+                                author: "Б. Энхжаргал",
+                                date: "2025-11-22",
+                                desc: "Техникийн шинэчлэл, аюулгүй байдлын асуудлуудыг авч үзсэн."
+                            }
+                        ];
+                        const magistrCard = document.getElementById('magistrCard');
+                        const doctorCard = document.getElementById('doctorCard');
+                        const magistrSection = document.getElementById('magistrArticlesSection');
+                        const doctorSection = document.getElementById('doctorArticlesSection');
+                        const journalCard = document.getElementById('journalCard');
+                        const journalSection = document.getElementById('journalSection');
+                        bachelorCard.onclick = function() {
+                            const bachelorSection = document.getElementById('bachelorArticlesSection');
+                            if (bachelorSection.style.display === 'none' || bachelorSection.style.display === '') {
+                                bachelorSection.style.display = 'block';
+                                magistrSection.style.display = 'none';
+                                doctorSection.style.display = 'none';
+                                journalSection.style.display = 'none';
+                                document.getElementById('bachelorArticles').innerHTML = bachelorArticles.map((a,i) => `
+                                    <a class="bachelor-article-card" href="article.html?id=${i+1}" style="text-decoration:none;color:inherit;">
+                                        <div class="bachelor-article-title">${a.title}</div>
+                                        <div class="bachelor-article-meta">${a.author} | ${a.date}</div>
+                                        <div class="bachelor-article-desc">${a.desc}</div>
+                                    </a>
+                                `).join('');
+                                bachelorCard.classList.add('active');
+                                if (magistrCard) magistrCard.style.display = 'none';
+                                if (doctorCard) doctorCard.style.display = 'none';
+                                if (journalCard) journalCard.style.display = 'none';
+                            } else {
+                                bachelorSection.style.display = 'none';
+                                bachelorCard.classList.remove('active');
+                                if (magistrCard) magistrCard.style.display = '';
+                                if (doctorCard) doctorCard.style.display = '';
+                                if (journalCard) journalCard.style.display = '';
+                            }
+                        };
+                        // Магистрын өгүүллүүд
+                        const magistrArticles = [
+                            {
+                                title: "Батлан хамгаалах бодлогын судалгаа",
+                                author: "Г. Мөнхцэцэг",
+                                date: "2026-01-10",
+                                desc: "Магистрын түвшний судалгааны ажлын товч танилцуулга."
+                            },
+                            {
+                                title: "Аюулгүй байдлын менежмент",
+                                author: "Д. Энхтөр",
+                                date: "2025-12-05",
+                                desc: "Аюулгүй байдлын менежментийн онол, практикийн тухай өгүүлэл."
+                            },
+                            {
+                                title: "Цэргийн технологийн хөгжил",
+                                author: "С. Батбаяр",
+                                date: "2025-11-18",
+                                desc: "Цэргийн технологийн шинэчлэл, хөгжлийн асуудлуудыг авч үзсэн."
+                            }
+                        ];
+                        magistrCard.onclick = function() {
+                            const magistrSection = document.getElementById('magistrArticlesSection');
+                            if (magistrSection.style.display === 'none' || magistrSection.style.display === '') {
+                                magistrSection.style.display = 'block';
+                                bachelorSection.style.display = 'none';
+                                doctorSection.style.display = 'none';
+                                journalSection.style.display = 'none';
+                                document.getElementById('magistrArticles').innerHTML = magistrArticles.map((a,i) => `
+                                    <a class="bachelor-article-card" href="article.html?id=${i+1}" style="text-decoration:none;color:inherit;">
+                                        <div class="bachelor-article-title">${a.title}</div>
+                                        <div class="bachelor-article-meta">${a.author} | ${a.date}</div>
+                                        <div class="bachelor-article-desc">${a.desc}</div>
+                                    </a>
+                                `).join('');
+                                magistrCard.classList.add('active');
+                                if (bachelorCard) bachelorCard.style.display = 'none';
+                                if (doctorCard) doctorCard.style.display = 'none';
+                                if (journalCard) journalCard.style.display = 'none';
+                            } else {
+                                magistrSection.style.display = 'none';
+                                magistrCard.classList.remove('active');
+                                if (bachelorCard) bachelorCard.style.display = '';
+                                if (doctorCard) doctorCard.style.display = '';
+                                if (journalCard) journalCard.style.display = '';
+                            }
+                        };
+                        // Докторын өгүүллүүд
+                        const doctorArticles = [
+                            {
+                                title: "Үндэсний аюулгүй байдлын онол",
+                                author: "Ж. Батмөнх",
+                                date: "2026-01-05",
+                                desc: "Докторын түвшний судалгааны ажлын товч танилцуулга."
+                            },
+                            {
+                                title: "Цэргийн удирдлагын стратеги",
+                                author: "П. Энхжаргал",
+                                date: "2025-12-01",
+                                desc: "Цэргийн удирдлагын стратегийн онол, практикийн тухай өгүүлэл."
+                            },
+                            {
+                                title: "Олон улсын батлан хамгаалах харилцаа",
+                                author: "Д. Мөнх-Эрдэнэ",
+                                date: "2025-11-10",
+                                desc: "Олон улсын батлан хамгаалах харилцааны асуудлуудыг авч үзсэн."
+                            }
+                        ];
+                        doctorCard.onclick = function() {
+                            const doctorSection = document.getElementById('doctorArticlesSection');
+                            if (doctorSection.style.display === 'none' || doctorSection.style.display === '') {
+                                doctorSection.style.display = 'block';
+                                bachelorSection.style.display = 'none';
+                                magistrSection.style.display = 'none';
+                                journalSection.style.display = 'none';
+                                document.getElementById('doctorArticles').innerHTML = doctorArticles.map((a,i) => `
+                                    <a class="bachelor-article-card" href="article.html?id=${i+1}" style="text-decoration:none;color:inherit;">
+                                        <div class="bachelor-article-title">${a.title}</div>
+                                        <div class="bachelor-article-meta">${a.author} | ${a.date}</div>
+                                        <div class="bachelor-article-desc">${a.desc}</div>
+                                    </a>
+                                `).join('');
+                                doctorCard.classList.add('active');
+                                if (bachelorCard) bachelorCard.style.display = 'none';
+                                if (magistrCard) magistrCard.style.display = 'none';
+                                if (journalCard) journalCard.style.display = 'none';
+                            } else {
+                                doctorSection.style.display = 'none';
+                                doctorCard.classList.remove('active');
+                                if (bachelorCard) bachelorCard.style.display = '';
+                                if (magistrCard) magistrCard.style.display = '';
+                                if (journalCard) journalCard.style.display = '';
+                            }
+                        };
+
+                        // Journal card click
+                        journalCard.onclick = function() {
+                            if (journalSection.style.display === 'none' || journalSection.style.display === '') {
+                                journalSection.style.display = 'block';
+                                bachelorSection.style.display = 'none';
+                                magistrSection.style.display = 'none';
+                                doctorSection.style.display = 'none';
+                                journalCard.classList.add('active');
+                                if (bachelorCard) bachelorCard.style.display = 'none';
+                                if (magistrCard) magistrCard.style.display = 'none';
+                                if (doctorCard) doctorCard.style.display = 'none';
+                            } else {
+                                journalSection.style.display = 'none';
+                                journalCard.classList.remove('active');
+                                if (bachelorCard) bachelorCard.style.display = '';
+                                if (magistrCard) magistrCard.style.display = '';
+                                if (doctorCard) doctorCard.style.display = '';
+                            }
+                        };
+            // Login modal open/close logic
+            document.getElementById('open-login-modal').onclick = function(e) {
+                e.preventDefault();
+                document.getElementById('loginModal').classList.add('active');
+            };
+            document.getElementById('close-login-modal').onclick = function() {
+                document.getElementById('loginModal').classList.remove('active');
+            };
+            // Close modal on background click
+            document.getElementById('loginModal').onclick = function(e) {
+                if (e.target === this) this.classList.remove('active');
+            };
+
+            // Toggle user/researcher button
+            const userBtn = document.getElementById('userTypeBtn');
+            const researcherBtn = document.getElementById('researcherTypeBtn');
+            userBtn.onclick = function() {
+                userBtn.style.background = 'var(--gold)';
+                userBtn.style.color = 'var(--navy)';
+                researcherBtn.style.background = '#eee';
+                researcherBtn.style.color = 'var(--navy)';
+                userBtn.textContent = 'Хэрэглэгч';
+                researcherBtn.textContent = 'Судлаач';
+            };
+            researcherBtn.onclick = function() {
+                researcherBtn.style.background = 'var(--gold)';
+                researcherBtn.style.color = 'var(--navy)';
+                userBtn.style.background = '#eee';
+                userBtn.style.color = 'var(--navy)';
+                userBtn.textContent = 'Хэрэглэгч';
+                researcherBtn.textContent = 'Судлаач';
+            };
+        </script>
+<script src="assets/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ҮБХИС-ийн Эрдэм шинжилгээний ажил, өгүүллийн нэгдсэн сан</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/login-modal.css">
+  <link rel="icon" href="assets/img/logo.png">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a class="logo" href="index.html" style="display:flex;align-items:center;text-decoration:none;">
+        <img src="assets/img/logo.png" alt="ҮБХИС лого">
+        <span>Үндэсний батлан хамгаалахын их сургууль</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Нүүр</a></li>
+        <li><a href="archive.html">Архив</a></li>
+        <li id="nav-login"><a href="#" id="open-login-modal">Нэвтрэх</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <img src="assets/img/logo.png" alt="ҮБХИС лого" style="width:120px;height:120px;margin:0 auto 1.2rem auto;display:block;">
+        <h1 style="text-align:center;">Эрдэм шинжилгээний өгүүллийн нэгдсэн сан</h1>
+        <form id="searchForm" class="search-bar">
+          <input type="text" id="searchInput" placeholder="Өгүүлэл, сэдэв, зохиогчоор хайх...">
+          <button type="submit">Хайх</button>
+        </form>
+      </div>
+    </section>
+    <section class="stats">
+      <div class="stat-card">
+        <span class="stat-num" id="stat-articles">--</span>
+        <span class="stat-label">Өгүүлэл</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num" id="stat-downloads">--</span>
+        <span class="stat-label">Таталт</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num" id="stat-users">--</span>
+        <span class="stat-label">Хэрэглэгчид</span>
+      </div>
+    </section>
+    <section class="latest-articles">
+      <h2>Сүүлд нэмэгдсэн өгүүллүүд</h2>
+      <div id="latestArticles" class="article-list"></div>
+    </section>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="login-modal-bg">
+    <div class="login-modal">
+      <button class="close-btn" id="close-login-modal" title="Хаах">&times;</button>
+      <div class="login-icon">
+        <svg width="32" height="32" fill="#fff" viewBox="0 0 24 24"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>
+      </div>
+      <div class="login-toggle-group">
+        <button id="userTypeBtn" type="button" class="login-toggle-btn active">Хэрэглэгч</button>
+        <button id="researcherTypeBtn" type="button" class="login-toggle-btn">Судлаач</button>
+      </div>
+      <form class="login-form">
+        <input type="text" id="login-username" name="username" required placeholder="Нэвтрэх нэр">
+        <input type="password" id="login-password" name="password" required placeholder="Нууц үг">
+        
+        
+        
+          <div class="login-forgot-row">
+          </div>
+          <button type="submit">Нэвтрэх</button>
+          <a href="#" id="register-link" class="login-register-btn">Бүртгүүлэх</a>
+      </form>
+      <script>
+        // Login modal open/close logic
+        document.getElementById('open-login-modal').onclick = function(e) {
+          e.preventDefault();
+          document.getElementById('loginModal').classList.add('active');
+        };
+        document.getElementById('close-login-modal').onclick = function() {
+          document.getElementById('loginModal').classList.remove('active');
+        };
+        // Close modal on background click
+        document.getElementById('loginModal').onclick = function(e) {
+          if (e.target === this) this.classList.remove('active');
+        };
+
+        // Toggle user/researcher button
+        const userBtn = document.getElementById('userTypeBtn');
+        const researcherBtn = document.getElementById('researcherTypeBtn');
+        userBtn.onclick = function() {
+          userBtn.classList.add('active');
+          researcherBtn.classList.remove('active');
+        };
+        researcherBtn.onclick = function() {
+          researcherBtn.classList.add('active');
+          userBtn.classList.remove('active');
+        };
+      </script>
+      <script src="assets/js/auth.js"></script>
+    </div>
+  </div>
+
+  <script>
+    // Login modal open/close logic
+    document.getElementById('open-login-modal').onclick = function(e) {
+      e.preventDefault();
+      document.getElementById('loginModal').classList.add('active');
+    };
+    document.getElementById('close-login-modal').onclick = function() {
+      document.getElementById('loginModal').classList.remove('active');
+    };
+    // Close modal on background click
+    document.getElementById('loginModal').onclick = function(e) {
+      if (e.target === this) this.classList.remove('active');
+    };

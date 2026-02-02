@@ -1,0 +1,186 @@
+<!-- account.html
+  - Uses existing style.css and login-modal.css (do not modify)
+  - Layout and design matches current card style
+  - Role-based content: user or researcher
+-->
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Өөрийн profile</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/login-modal.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a class="logo" href="index.html" style="display:flex;align-items:center;text-decoration:none;">
+                <img src="assets/img/logo.png" alt="ҮБХИС лого">
+                <span>Үндэсний батлан хамгаалахын их сургууль</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Нүүр</a></li>
+                <li><a href="archive.html">Архив</a></li>
+                <li id="nav-profile"><a href="account.html" class="active">Өөрийн profile</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="profile-layout">
+            <div class="profile-col-left">
+                <div class="profile-card">
+                    <div class="profile-title">Өөрийн мэдээлэл</div>
+                    <div><span class="profile-label">Нэвтэрсэн нэр:</span> <span class="profile-value" id="profile-username"></span></div>
+                    <div><span class="profile-label">Role:</span> <span class="profile-value" id="profile-role"></span></div>
+                    <div><span class="profile-label">Email:</span> <span class="profile-value" id="profile-email"></span></div>
+                    <div><span class="profile-label">Бүртгүүлсэн огноо:</span> <span class="profile-value" id="profile-joined"></span></div>
+                    <button class="profile-btn" id="profile-edit-btn">Засах</button>
+                    <div id="profile-edit-section" style="display:none;margin-top:1em;">
+                        <input type="text" placeholder="Шинэ email" style="width:100%;margin-bottom:0.7em;">
+                        <button class="profile-btn">Хадгалах (demo)</button>
+                    </div>
+                </div>
+                <div class="profile-card">
+                    <div class="profile-title">Нууц үгийн тохиргоо</div>
+                    <div class="p-tabbar">
+                        <button type="button" class="p-tab active" data-tab="change">Нууц үг солих</button>
+                        <button type="button" class="p-tab" data-tab="reset">Нууц үг сэргээх</button>
+                    </div>
+                    <div id="tab-change" class="p-tabpanel active">
+                        <form id="profile-pass-form" autocomplete="off">
+                            <div class="p-field">
+                                <label for="profile-pass-current">Одоогийн нууц үг</label>
+                                <input type="password" id="profile-pass-current" placeholder="Одоогийн нууц үг">
+                                <div class="p-help">Таны одоогийн нууц үг.</div>
+                            </div>
+                            <div class="p-field">
+                                <label for="profile-pass-new">Шинэ нууц үг</label>
+                                <input type="password" id="profile-pass-new" placeholder="Шинэ нууц үг">
+                                <div class="p-help">Шинэ нууц үг 6+ тэмдэгт байх ёстой.</div>
+                            </div>
+                            <div class="p-field">
+                                <label for="profile-pass-repeat">Давтах</label>
+                                <input type="password" id="profile-pass-repeat" placeholder="Давтах">
+                                <div class="p-help">Шинэ нууц үгээ дахин оруулна уу.</div>
+                            </div>
+                            <div class="p-actions">
+                                <button class="p-btn p-btn--primary" type="submit">Солих</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tab-reset" class="p-tabpanel">
+                        <form id="profile-reset-form" autocomplete="off">
+                            <div id="resetStep1">
+                                <div class="p-field">
+                                    <label for="profile-reset-email">Email</label>
+                                    <input type="email" id="profile-reset-email" placeholder="Email">
+                                    <div class="p-help">Бүртгэлтэй email хаягаа оруулна уу.</div>
+                                </div>
+                                <div class="p-actions">
+                                    <button class="p-btn p-btn--primary" id="profile-reset-send" type="button">Код илгээх</button>
+                                </div>
+                            </div>
+                            <div id="resetStep2" style="display:none;">
+                                <div class="p-field">
+                                    <label for="profile-reset-code">Код</label>
+                                    <input type="text" id="profile-reset-code" placeholder="Код">
+                                    <div class="p-help">Таны email рүү илгээгдсэн 6 оронтой код.</div>
+                                </div>
+                                <div class="p-actions">
+                                    <button class="p-btn p-btn--primary" id="profile-reset-verify" type="button">Баталгаажуулах</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="pwMessage" class="p-msg" style="display:none;"></div>
+                </div>
+            </div>
+            <div class="profile-col-right">
+                <div class="p-card" id="researcherOnlyCard" style="display:none;">
+                    <h2>Судлаачийн хэсэг</h2>
+                    <p class="p-muted">Өгүүлэл / Ном оруулах, оруулсан бүтээлүүдээ удирдах.</p>
+                    <div class="p-tabbar">
+                        <button type="button" class="p-tab active" data-rtab="submit">Оруулах</button>
+                        <button type="button" class="p-tab" data-rtab="myworks">Миний бүтээлүүд</button>
+                    </div>
+                    <div id="rtab-submit" class="p-tabpanel active">
+                        <form id="researcherUploadForm" autocomplete="off">
+                            <div class="p-form-grid">
+                                <div class="p-field">
+                                    <label for="rType">Төрөл</label>
+                                    <select id="rType" required>
+                                        <option value="article">Өгүүлэл</option>
+                                        <option value="book">Ном</option>
+                                    </select>
+                                </div>
+                                <div class="p-field">
+                                    <label for="rTitle">Гарчиг</label>
+                                    <input type="text" id="rTitle" required>
+                                </div>
+                                <div class="p-field">
+                                    <label for="rAuthor">Зохиогч</label>
+                                    <input type="text" id="rAuthor" required>
+                                </div>
+                                <div class="p-field">
+                                    <label for="rSchool">Харьяалал/Сургууль</label>
+                                    <select id="rSchool" required>
+                                        <option value="NDU">ҮБХИС</option>
+                                        <option value="NUM">МУИС</option>
+                                        <option value="MUST">ШУТИС</option>
+                                        <option value="Other">Бусад</option>
+                                    </select>
+                                </div>
+                                <div class="p-field" id="rLevelField">
+                                    <label for="rLevel">Түвшин</label>
+                                    <select id="rLevel">
+                                        <option value="Бакалавр">Бакалавр</option>
+                                        <option value="Магистр">Магистр</option>
+                                        <option value="Доктор">Доктор</option>
+                                    </select>
+                                </div>
+                                <div class="p-field span-2">
+                                    <label for="rDesc">Товч танилцуулга</label>
+                                    <textarea id="rDesc" rows="3" required></textarea>
+                                </div>
+                                <div class="p-field span-2">
+                                    <label for="rFile">PDF файл</label>
+                                    <input type="file" id="rFile" accept="application/pdf" required>
+                                    <span class="p-file-name" id="rFileName"></span>
+                                </div>
+                            </div>
+                            <div class="p-actions">
+                                <button class="p-btn p-btn--primary" type="submit">Илгээх</button>
+                            </div>
+                            <div class="p-msg" id="researcherUploadMsg" style="display:none;"></div>
+                        </form>
+                    </div>
+                    <div id="rtab-myworks" class="p-tabpanel">
+                        <div id="researcherWorksList"></div>
+                    </div>
+                </div>
+                <div class="profile-tabs">
+                    <button class="profile-tab active" type="button">Сүүлд уншсан</button>
+                    <button class="profile-tab" type="button">Татаж авсан</button>
+                </div>
+                <div class="profile-section profile-tab-section">
+                    <div class="profile-title" style="margin-bottom:1em;">Сүүлд уншсан өгүүллүүд</div>
+                    <div class="profile-list" id="profile-recent-list"></div>
+                </div>
+                <div class="profile-section profile-tab-section" style="display:none;">
+                    <div class="profile-title" style="margin-bottom:1em;">Татаж авсан өгүүллүүд</div>
+                    <div class="profile-list" id="profile-download-list"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-inner">
+            <span>&copy; 2026 ҮБХИС - Эрдэм шинжилгээний өгүүллийн нэгдсэн сан</span>
+        </div>
+    </footer>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/profile.js"></script>
+</body>
+</html>
